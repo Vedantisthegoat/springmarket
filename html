@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spring Garden Market 🌱</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,700;0,900;1,300;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf6ef;
+  --cream2: #f3ede0;
+  --cream3: #e8dfc8;
+  --brown: #5c3d1e;
+  --brown2: #8a5c2e;
+  --green: #2d5a27;
+  --green2: #4a8c42;
+  --green3: #7ab870;
+  --green-light: #e8f5e4;
+  --terracotta: #c4622d;
+  --terra-light: #fce8dc;
+  --gold: #c9920a;
+  --gold-light: #fef3d0;
+  --text: #2a1f0e;
+  --text2: #6b5640;
+  --text3: #a08060;
+  --border: rgba(92,61,30,0.12);
+  --border2: rgba(92,61,30,0.2);
+  --shadow: 0 4px 24px rgba(44,31,10,0.1);
+  --shadow2: 0 12px 48px rgba(44,31,10,0.15);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+/* ── PAGES ── */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.page.active { animation: fadeIn 0.35s ease; }
+
+/* ── SHARED BUTTONS ── */
+.btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.3rem; border-radius: 100px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 0.875rem; cursor: pointer; border: none; transition: all 0.2s; text-decoration: none; }
+.btn-green { background: var(--green); color: #fff; }
+.btn-green:hover { background: var(--green2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(45,90,39,0.3); }
+.btn-terra { background: var(--terracotta); color: #fff; }
+.btn-terra:hover { background: #d4713a; transform: translateY(-1px); }
+.btn-outline { background: transparent; border: 1.5px solid var(--brown2); color: var(--brown); }
+.btn-outline:hover { background: var(--cream2); }
+.btn-ghost { background: transparent; color: var(--text2); }
+.btn-ghost:hover { background: var(--cream2); }
+.btn-sm { padding: 0.4rem 0.9rem; font-size: 0.78rem; }
+.btn-lg { padding: 0.8rem 1.8rem; font-size: 1rem; border-radius: 100px; }
+.btn-full { width: 100%; justify-content: center; border-radius: 12px; padding: 0.85rem; font-size: 0.95rem; }
+
+/* ════════════════════════
+   LANDING PAGE
+════════════════════════ */
+#page-landing { background: var(--cream); }
+
+.landing-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 5vw; background: rgba(250,246,239,0.9);
+  backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100;
+  border-bottom: 1px solid var(--border);
+}
+.site-logo { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 700; color: var(--green); display: flex; align-items: center; gap: 0.4rem; cursor: pointer; }
+.site-logo .leaf { font-size: 1.3rem; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--text2); font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--green); }
+.nav-actions { display: flex; gap: 0.6rem; align-items: center; }
+
+/* HERO */
+.hero {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+  align-items: center; padding: 5rem 5vw 4rem; max-width: 1200px; margin: 0 auto;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--green-light); color: var(--green); border-radius: 100px;
+  padding: 0.35rem 1rem; font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 1.25rem;
+}
+.hero h1 {
+  font-family: 'Fraunces', serif; font-size: clamp(2.8rem, 5vw, 4rem);
+  font-weight: 900; line-height: 1.08; letter-spacing: -0.02em;
+  color: var(--text); margin-bottom: 1.25rem;
+}
+.hero h1 em { font-style: italic; color: var(--green2); }
+.hero-sub { color: var(--text2); font-size: 1.05rem; line-height: 1.75; margin-bottom: 2rem; font-weight: 400; max-width: 440px; }
+.hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.hero-stats { display: flex; gap: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+.hstat-num { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 700; color: var(--green); display: block; }
+.hstat-label { font-size: 0.78rem; color: var(--text3); font-weight: 500; }
+
+.hero-visual { position: relative; }
+.hero-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.hero-plant-card {
+  background: #fff; border-radius: 18px; overflow: hidden;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+  transition: transform 0.3s; cursor: pointer;
+}
+.hero-plant-card:hover { transform: translateY(-4px); box-shadow: var(--shadow2); }
+.hpc-img { height: 130px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative; overflow: hidden; }
+.hpc-img-1 { background: linear-gradient(135deg, #d4edda, #a8d5a2); }
+.hpc-img-2 { background: linear-gradient(135deg, #fde8d8, #f5c4a0); }
+.hpc-img-3 { background: linear-gradient(135deg, #e8f4e8, #c5e0c3); }
+.hpc-img-4 { background: linear-gradient(135deg, #fff3cd, #fde4a0); }
+.hpc-body { padding: 0.85rem; }
+.hpc-name { font-weight: 700; font-size: 0.82rem; margin-bottom: 0.2rem; }
+.hpc-price { color: var(--terracotta); font-weight: 700; font-size: 0.82rem; }
+.hpc-loc { color: var(--text3); font-size: 0.7rem; margin-top: 0.2rem; }
+.hero-float-badge {
+  position: absolute; bottom: -1rem; left: 50%; transform: translateX(-50%);
+  background: #fff; border-radius: 100px; padding: 0.65rem 1.25rem;
+  box-shadow: var(--shadow2); display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.8rem; font-weight: 600; white-space: nowrap; border: 1px solid var(--border);
+}
+
+/* FEATURES */
+.section { padding: 5rem 5vw; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--terracotta); margin-bottom: 0.75rem; }
+.section-label::before { content:''; width:16px; height:2px; background:var(--terracotta); border-radius:2px; }
+h2.section-title { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.75rem; }
+.section-desc { color: var(--text2); font-size: 1rem; line-height: 1.7; max-width: 500px; margin-bottom: 3rem; }
+
+.features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+.feat-card { background: #fff; border-radius: 20px; padding: 2rem; border: 1px solid var(--border); transition: all 0.25s; }
+.feat-card:hover { box-shadow: var(--shadow2); transform: translateY(-3px); }
+.feat-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem; }
+.fi-green { background: var(--green-light); }
+.fi-terra { background: var(--terra-light); }
+.fi-gold { background: var(--gold-light); }
+.feat-card h3 { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+.feat-card p { color: var(--text2); font-size: 0.85rem; line-height: 1.65; }
+
+/* HOW IT WORKS */
+.hiw-section { background: var(--green); color: #fff; padding: 5rem 5vw; }
+.hiw-inner { max-width: 1100px; margin: 0 auto; }
+.hiw-section .section-label { color: var(--green3); }
+.hiw-section .section-label::before { background: var(--green3); }
+.hiw-section h2 { color: #fff; margin-bottom: 3rem; }
+.steps-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; }
+.step { text-align: center; }
+.step-num { font-family: 'Fraunces', serif; font-size: 2.5rem; font-weight: 900; color: var(--green3); margin-bottom: 0.75rem; opacity: 0.7; }
+.step-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+.step h4 { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+.step p { font-size: 0.82rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+
+/* LISTINGS PREVIEW */
+.listings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 1.25rem; }
+.plant-card { background: #fff; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); cursor: pointer; transition: all 0.25s; }
+.plant-card:hover { box-shadow: var(--shadow2); transform: translateY(-4px); }
+.pc-img { height: 170px; display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative; }
+.pc-img-1{background:linear-gradient(145deg,#c8e6c9,#81c784);}
+.pc-img-2{background:linear-gradient(145deg,#fff9c4,#f9a825);}
+.pc-img-3{background:linear-gradient(145deg,#ffccbc,#ff8a65);}
+.pc-img-4{background:linear-gradient(145deg,#e1f5fe,#81d4fa);}
+.pc-img-5{background:linear-gradient(145deg,#f3e5f5,#ce93d8);}
+.pc-img-6{background:linear-gradient(145deg,#dcedc8,#aed581);}
+.pc-badge { position: absolute; top: 0.75rem; left: 0.75rem; background: rgba(255,255,255,0.95); border-radius: 100px; padding: 0.2rem 0.65rem; font-size: 0.68rem; font-weight: 700; color: var(--green); }
+.pc-trade { color: var(--terracotta); }
+.pc-body { padding: 1rem; }
+.pc-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem; }
+.pc-seller { font-size: 0.75rem; color: var(--text3); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.3rem; }
+.pc-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+.pc-price { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.05rem; color: var(--terracotta); }
+.pc-loc { font-size: 0.72rem; color: var(--text3); display: flex; align-items: center; gap: 0.2rem; }
+
+/* CTA */
+.cta-section { background: var(--cream2); padding: 5rem 5vw; text-align: center; }
+.cta-inner { max-width: 600px; margin: 0 auto; }
+.cta-inner h2 { font-family: 'Fraunces', serif; font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; letter-spacing: -0.02em; }
+.cta-inner p { color: var(--text2); margin-bottom: 2rem; line-height: 1.7; }
+
+/* FOOTER */
+footer { background: var(--text); color: rgba(255,255,255,0.8); padding: 3rem 5vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-logo { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 700; color: #fff; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; }
+.footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+.footer-links a:hover { color: #fff; }
+.footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+
+/* ════════════════════════
+   AUTH PAGE
+════════════════════════ */
+#page-auth {
+  background: var(--cream);
+  display: none;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+#page-auth.active { display: flex; }
+
+.auth-wrap { display: grid; grid-template-columns: 1fr 1fr; max-width: 900px; width: 100%; border-radius: 28px; overflow: hidden; box-shadow: 0 30px 80px rgba(44,31,10,0.2); }
+.auth-left { background: var(--green); padding: 3rem; color: #fff; display: flex; flex-direction: column; justify-content: space-between; }
+.auth-left-logo { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 2rem; }
+.auth-left h2 { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 900; line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.02em; }
+.auth-left p { font-size: 0.875rem; color: rgba(255,255,255,0.75); line-height: 1.7; }
+.auth-perks { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.auth-perk { display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; color: rgba(255,255,255,0.9); }
+.auth-perk-icon { width: 32px; height: 32px; background: rgba(255,255,255,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.auth-right { background: #fff; padding: 3rem; }
+.auth-tabs { display: flex; background: var(--cream); border-radius: 12px; padding: 3px; margin-bottom: 2rem; }
+.atab { flex: 1; text-align: center; padding: 0.6rem; border-radius: 10px; font-size: 0.875rem; font-weight: 600; cursor: pointer; color: var(--text2); transition: all 0.2s; user-select: none; }
+.atab.active { background: #fff; color: var(--text); box-shadow: 0 2px 8px rgba(44,31,10,0.1); }
+.auth-form-title { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.3rem; }
+.auth-form-sub { color: var(--text2); font-size: 0.85rem; margin-bottom: 1.75rem; }
+.fg { margin-bottom: 1rem; }
+.fl { display: block; font-size: 0.78rem; font-weight: 700; color: var(--text2); margin-bottom: 0.4rem; letter-spacing: 0.03em; text-transform: uppercase; }
+.fi { width: 100%; background: var(--cream); border: 1.5px solid var(--border2); border-radius: 10px; padding: 0.75rem 1rem; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.fi::placeholder { color: var(--text3); }
+.fi:focus { border-color: var(--green2); box-shadow: 0 0 0 3px rgba(74,140,66,0.12); }
+.fi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.err-msg { background: #fff0f0; border: 1px solid rgba(196,98,45,0.3); color: var(--terracotta); font-size: 0.8rem; padding: 0.6rem 0.9rem; border-radius: 8px; margin-bottom: 1rem; display: none; }
+.forgot-link { font-size: 0.75rem; color: var(--text3); text-align: right; margin-top: 0.3rem; cursor: pointer; }
+.forgot-link:hover { color: var(--green); }
+.form-switch { text-align: center; margin-top: 1rem; font-size: 0.8rem; color: var(--text3); }
+.form-switch a { color: var(--green); text-decoration: none; font-weight: 600; }
+.demo-bar { display: flex; align-items: center; gap: 1rem; margin: 1rem 0; }
+.demo-bar::before, .demo-bar::after { content:''; flex:1; height:1px; background:var(--border); }
+.demo-bar span { font-size: 0.72rem; color: var(--text3); }
+
+/* ════════════════════════
+   APP SHELL
+════════════════════════ */
+#page-app { display: none; min-height: 100vh; flex-direction: column; }
+#page-app.active { display: flex; }
+
+.app-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; height: 62px; background: #fff;
+  border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(44,31,10,0.06);
+}
+.app-nav-center { display: flex; gap: 0.25rem; }
+.anav-item { display: flex; align-items: center; gap: 0.45rem; padding: 0.5rem 0.9rem; border-radius: 100px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--text2); transition: all 0.15s; user-select: none; white-space: nowrap; }
+.anav-item:hover { background: var(--cream); color: var(--text); }
+.anav-item.active { background: var(--green-light); color: var(--green); }
+.anav-badge { background: var(--terracotta); color: #fff; font-size: 0.6rem; font-weight: 700; padding: 0.1rem 0.35rem; border-radius: 100px; margin-left: 0.1rem; }
+.user-menu { display: flex; align-items: center; gap: 0.75rem; }
+.user-av { width: 34px; height: 34px; border-radius: 50%; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer; border: 2px solid var(--green3); }
+.user-name-nav { font-size: 0.82rem; font-weight: 600; color: var(--text2); }
+
+/* VIEWS */
+.view { display: none; flex: 1; }
+.view.active { display: block; animation: fadeIn 0.25s ease; }
+
+/* ─── MARKETPLACE VIEW ─── */
+#view-market { background: var(--cream); }
+.market-inner { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+.market-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.75rem; flex-wrap: wrap; gap: 1rem; }
+.market-search { display: flex; align-items: center; gap: 0.6rem; background: #fff; border: 1.5px solid var(--border2); border-radius: 100px; padding: 0.6rem 1.1rem; width: 320px; transition: border-color 0.2s; }
+.market-search:focus-within { border-color: var(--green2); }
+.market-search input { background: transparent; border: none; outline: none; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.875rem; flex: 1; }
+.market-search input::placeholder { color: var(--text3); }
+.filter-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+.filter-chip { padding: 0.4rem 0.9rem; border-radius: 100px; font-size: 0.78rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--border2); color: var(--text2); background: #fff; transition: all 0.15s; user-select: none; }
+.filter-chip:hover { border-color: var(--green2); color: var(--green); }
+.filter-chip.active { background: var(--green); color: #fff; border-color: var(--green); }
+
+/* LISTING DETAIL MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(44,31,10,0.5); z-index: 500; display: none; align-items: center; justify-content: center; padding: 2rem; backdrop-filter: blur(4px); }
+.modal-overlay.open { display: flex; animation: fadeIn 0.2s ease; }
+.modal-box { background: #fff; border-radius: 24px; max-width: 660px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 30px 80px rgba(44,31,10,0.25); }
+.modal-img { height: 220px; display: flex; align-items: center; justify-content: center; font-size: 5rem; border-radius: 24px 24px 0 0; }
+.modal-body { padding: 2rem; }
+.modal-title { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.4rem; }
+.modal-price { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; color: var(--terracotta); margin-bottom: 0.5rem; }
+.modal-meta { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.modal-meta-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; color: var(--text2); }
+.modal-desc { color: var(--text2); font-size: 0.9rem; line-height: 1.75; margin-bottom: 1.5rem; }
+.modal-seller { display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: var(--cream); border-radius: 14px; margin-bottom: 1.25rem; }
+.seller-av { width: 44px; height: 44px; border-radius: 50%; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+.seller-name { font-weight: 700; font-size: 0.9rem; }
+.seller-loc { font-size: 0.78rem; color: var(--text3); }
+.seller-rating { font-size: 0.78rem; color: var(--gold); margin-top: 0.15rem; }
+.modal-actions { display: flex; gap: 0.75rem; }
+.modal-close { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; transition: background 0.15s; }
+.modal-close:hover { background: var(--cream2); }
+.modal-wrapper { position: relative; }
+
+/* ─── SELL VIEW ─── */
+#view-sell { background: var(--cream); }
+.sell-inner { max-width: 720px; margin: 0 auto; padding: 2rem; }
+.sell-card { background: #fff; border-radius: 24px; border: 1px solid var(--border); padding: 2.5rem; box-shadow: var(--shadow); }
+.sell-title { font-family: 'Fraunces', serif; font-size: 1.7rem; font-weight: 700; margin-bottom: 0.4rem; }
+.sell-sub { color: var(--text2); font-size: 0.9rem; margin-bottom: 2rem; }
+.upload-zone { border: 2px dashed var(--border2); border-radius: 16px; padding: 2.5rem; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--cream); margin-bottom: 1.25rem; }
+.upload-zone:hover { border-color: var(--green2); background: var(--green-light); }
+.upload-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+.upload-text { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
+.upload-hint { font-size: 0.78rem; color: var(--text3); }
+.type-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.6rem; margin-bottom: 1.25rem; }
+.type-opt { padding: 0.7rem; border-radius: 12px; border: 1.5px solid var(--border2); text-align: center; cursor: pointer; transition: all 0.15s; font-size: 0.8rem; font-weight: 600; color: var(--text2); background: var(--cream); user-select: none; }
+.type-opt:hover { border-color: var(--green2); color: var(--green); }
+.type-opt.selected { border-color: var(--green); background: var(--green-light); color: var(--green); }
+.type-opt .t-icon { display: block; font-size: 1.4rem; margin-bottom: 0.3rem; }
+.price-toggle { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; }
+.ptoggle { flex: 1; padding: 0.6rem; border-radius: 10px; border: 1.5px solid var(--border2); text-align: center; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: var(--text2); background: var(--cream); transition: all 0.15s; user-select: none; }
+.ptoggle.active { border-color: var(--terracotta); background: var(--terra-light); color: var(--terracotta); }
+.submit-success { display: none; text-align: center; padding: 2rem; }
+.success-icon { font-size: 3rem; margin-bottom: 0.75rem; }
+.success-title { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+
+/* ─── COMMUNITY VIEW ─── */
+#view-community { background: var(--cream); }
+.community-inner { max-width: 1100px; margin: 0 auto; padding: 2rem; display: grid; grid-template-columns: 1fr 340px; gap: 2rem; }
+.comm-main {}
+.comm-sidebar {}
+.post-card { background: #fff; border-radius: 18px; border: 1px solid var(--border); padding: 1.5rem; margin-bottom: 1rem; transition: all 0.2s; }
+.post-card:hover { box-shadow: var(--shadow); }
+.post-head { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.9rem; }
+.post-av { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+.post-av-g { background: var(--green-light); }
+.post-av-t { background: var(--terra-light); }
+.post-av-y { background: var(--gold-light); }
+.post-author-name { font-weight: 700; font-size: 0.875rem; }
+.post-time { font-size: 0.72rem; color: var(--text3); }
+.post-title { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+.post-content { font-size: 0.875rem; color: var(--text2); line-height: 1.7; margin-bottom: 0.9rem; }
+.post-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.9rem; }
+.comm-tag { font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 100px; background: var(--cream2); color: var(--brown2); font-weight: 600; }
+.post-actions { display: flex; gap: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+.pact { display: flex; align-items: center; gap: 0.35rem; font-size: 0.78rem; color: var(--text3); cursor: pointer; padding: 0.25rem 0.5rem; border-radius: 6px; transition: all 0.15s; }
+.pact:hover { color: var(--green); background: var(--green-light); }
+.pact.liked { color: var(--terracotta); }
+.new-post-card { background: #fff; border-radius: 18px; border: 1px solid var(--border2); padding: 1.25rem; margin-bottom: 1.5rem; }
+.new-post-input { width: 100%; border: none; background: var(--cream); border-radius: 10px; padding: 0.85rem 1rem; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.875rem; resize: none; outline: none; color: var(--text); margin-bottom: 0.75rem; min-height: 80px; }
+.new-post-input::placeholder { color: var(--text3); }
+.new-post-footer { display: flex; align-items: center; justify-content: space-between; }
+.comm-side-card { background: #fff; border-radius: 16px; border: 1px solid var(--border); padding: 1.25rem; margin-bottom: 1rem; }
+.comm-side-title { font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.9rem; }
+.trending-tag { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.82rem; cursor: pointer; }
+.trending-tag:last-child { border: none; }
+.trending-tag:hover { color: var(--green); }
+.tt-count { font-size: 0.72rem; color: var(--text3); }
+.tip-card { background: var(--green); border-radius: 16px; padding: 1.25rem; color: #fff; margin-bottom: 1rem; }
+.tip-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.tip-title { font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+.tip-text { font-size: 0.78rem; color: rgba(255,255,255,0.8); line-height: 1.6; }
+
+/* ─── MESSAGES VIEW ─── */
+#view-messages { background: var(--cream); }
+.messages-shell { display: flex; height: calc(100vh - 62px); }
+.msg-sidebar { width: 300px; flex-shrink: 0; background: #fff; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+.msg-sidebar-head { padding: 1.25rem; border-bottom: 1px solid var(--border); }
+.msg-sidebar-title { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
+.msg-search-bar { display: flex; align-items: center; gap: 0.5rem; background: var(--cream); border: 1px solid var(--border); border-radius: 100px; padding: 0.5rem 0.9rem; }
+.msg-search-bar input { background: transparent; border: none; outline: none; font-size: 0.82rem; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; flex: 1; }
+.msg-search-bar input::placeholder { color: var(--text3); }
+.msg-list { flex: 1; overflow-y: auto; padding: 0.5rem; }
+.msg-conv { display: flex; align-items: center; gap: 0.65rem; padding: 0.85rem 0.75rem; border-radius: 14px; cursor: pointer; transition: background 0.15s; }
+.msg-conv:hover { background: var(--cream); }
+.msg-conv.active { background: var(--green-light); }
+.conv-av { width: 44px; height: 44px; border-radius: 50%; background: var(--cream2); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; position: relative; }
+.conv-online { position: absolute; bottom: 1px; right: 1px; width: 10px; height: 10px; background: var(--green2); border-radius: 50%; border: 2px solid #fff; }
+.conv-info { flex: 1; min-width: 0; }
+.conv-name { font-weight: 700; font-size: 0.85rem; margin-bottom: 0.15rem; }
+.conv-preview { font-size: 0.75rem; color: var(--text3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.conv-meta { text-align: right; flex-shrink: 0; }
+.conv-time { font-size: 0.68rem; color: var(--text3); margin-bottom: 0.25rem; }
+.conv-badge { background: var(--green); color: #fff; font-size: 0.62rem; font-weight: 700; padding: 0.15rem 0.45rem; border-radius: 100px; display: inline-block; }
+.chat-area { flex: 1; display: flex; flex-direction: column; }
+.chat-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.85rem; background: #fff; }
+.chat-header-info { flex: 1; }
+.chat-hname { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1rem; }
+.chat-hlisting { font-size: 0.75rem; color: var(--text3); }
+.chat-hstatus { font-size: 0.72rem; color: var(--green2); }
+.chat-messages { flex: 1; padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; background: var(--cream); }
+.msg-wrap { display: flex; gap: 0.6rem; align-items: flex-end; max-width: 75%; }
+.msg-wrap.me { align-self: flex-end; flex-direction: row-reverse; }
+.msg-bubble { padding: 0.7rem 1rem; border-radius: 18px; font-size: 0.875rem; line-height: 1.55; }
+.msg-wrap.them .msg-bubble { background: #fff; border-bottom-left-radius: 4px; border: 1px solid var(--border); }
+.msg-wrap.me .msg-bubble { background: var(--green); color: #fff; border-bottom-right-radius: 4px; }
+.msg-time-text { font-size: 0.65rem; color: var(--text3); margin-bottom: 0.2rem; }
+.msg-wrap.me .msg-time-text { text-align: right; }
+.date-divider { text-align: center; font-size: 0.72rem; color: var(--text3); margin: 0.5rem 0; display: flex; align-items: center; gap: 0.75rem; }
+.date-divider::before, .date-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+.chat-input-bar { padding: 1rem 1.5rem; border-top: 1px solid var(--border); display: flex; gap: 0.75rem; align-items: flex-end; background: #fff; }
+.chat-input-wrap { flex: 1; background: var(--cream); border: 1.5px solid var(--border2); border-radius: 14px; padding: 0.7rem 1rem; transition: border-color 0.2s; }
+.chat-input-wrap:focus-within { border-color: var(--green2); }
+.chat-ta { width: 100%; background: transparent; border: none; outline: none; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.875rem; resize: none; max-height: 120px; }
+.chat-ta::placeholder { color: var(--text3); }
+.send-btn { width: 42px; height: 42px; border-radius: 12px; background: var(--green); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: all 0.2s; flex-shrink: 0; }
+.send-btn:hover { background: var(--green2); transform: scale(1.05); }
+.chat-empty-state { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text3); background: var(--cream); gap: 0.75rem; }
+.ces-icon { font-size: 3rem; }
+
+/* ─── DASHBOARD VIEW ─── */
+#view-dashboard { background: var(--cream); }
+.dash-inner { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+.dash-header { margin-bottom: 2rem; }
+.dash-greeting { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 0.25rem; }
+.dash-sub { color: var(--text2); font-size: 0.9rem; }
+.dash-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-bottom: 2rem; }
+.dstat { background: #fff; border-radius: 18px; border: 1px solid var(--border); padding: 1.25rem; }
+.dstat-num { font-family: 'Fraunces', serif; font-size: 1.9rem; font-weight: 900; color: var(--green); }
+.dstat-label { font-size: 0.78rem; color: var(--text2); margin-top: 0.25rem; }
+.dstat-change { font-size: 0.72rem; color: var(--green2); margin-top: 0.15rem; }
+.dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.dash-card { background: #fff; border-radius: 18px; border: 1px solid var(--border); padding: 1.5rem; }
+.dash-card-title { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 700; margin-bottom: 1.1rem; }
+.my-listing-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+.my-listing-row:last-child { border: none; }
+.ml-img { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+.ml-info { flex: 1; }
+.ml-name { font-weight: 700; font-size: 0.85rem; }
+.ml-price { font-size: 0.75rem; color: var(--terracotta); font-weight: 600; }
+.ml-status { font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 100px; font-weight: 700; }
+.status-avail { background: var(--green-light); color: var(--green); }
+.status-sold { background: var(--terra-light); color: var(--terracotta); }
+.status-reserved { background: var(--gold-light); color: var(--gold); }
+.activity-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+.activity-item:last-child { border: none; }
+.act-icon { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+.act-text { font-size: 0.82rem; color: var(--text2); line-height: 1.5; }
+.act-time { font-size: 0.7rem; color: var(--text3); margin-top: 0.15rem; }
+
+/* TOAST */
+.toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--green); color: #fff; padding: 0.9rem 1.4rem; border-radius: 14px; font-size: 0.875rem; font-weight: 600; z-index: 9000; box-shadow: 0 8px 30px rgba(45,90,39,0.3); transform: translateY(20px); opacity: 0; transition: all 0.3s; pointer-events: none; }
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  .hero { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-card-grid { max-width: 360px; }
+  .features-grid { grid-template-columns: 1fr 1fr; }
+  .steps-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .auth-wrap { grid-template-columns: 1fr; }
+  .auth-left { display: none; }
+  .dash-stats { grid-template-columns: 1fr 1fr; }
+  .community-inner { grid-template-columns: 1fr; }
+  .comm-sidebar { display: none; }
+  .msg-sidebar { width: 260px; }
+  .dash-grid { grid-template-columns: 1fr; }
+}
+@media(max-width:600px){
+  .nav-links { display: none; }
+  .app-nav-center { gap: 0; }
+  .anav-item span { display: none; }
+  .features-grid { grid-template-columns: 1fr; }
+  .msg-sidebar { width: 220px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     LANDING PAGE
+════════════════════════════════ -->
+<div id="page-landing" class="page active">
+
+  <nav class="landing-nav">
+    <div class="site-logo" onclick="goTo('landing')"><span class="leaf">🌱</span> Spring Garden Market</div>
+    <ul class="nav-links">
+      <li><a href="#" onclick="scrollToSection('features');return false;">Features</a></li>
+      <li><a href="#" onclick="scrollToSection('how-it-works');return false;">How It Works</a></li>
+      <li><a href="#" onclick="scrollToSection('listings-preview');return false;">Browse Plants</a></li>
+      <li><a href="#" onclick="scrollToSection('community-preview');return false;">Community</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" onclick="goTo('auth', 'login')">Log In</button>
+      <button class="btn btn-green" onclick="goTo('auth', 'signup')">Join Free 🌿</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="section" style="padding-top:3rem;padding-bottom:3rem;">
+    <div class="section-inner">
+      <div class="hero">
+        <div>
+          <div class="hero-eyebrow">🌿 Bay Area's Plant Community</div>
+          <h1>Trade plants<br>with your <em>neighbors</em></h1>
+          <p class="hero-sub">Spring Garden Market connects Bay Area gardeners to buy, sell, and trade saplings, young trees, herbs, and fresh seasonal fruit — locally and sustainably.</p>
+          <div class="hero-actions">
+            <button class="btn btn-green btn-lg" onclick="goTo('auth','signup')">Start Selling 🌱</button>
+            <button class="btn btn-outline btn-lg" onclick="goTo('auth','login')">Browse Plants</button>
+          </div>
+          <div class="hero-stats">
+            <div><span class="hstat-num">1,200+</span><span class="hstat-label">Local listings</span></div>
+            <div><span class="hstat-num">4,800+</span><span class="hstat-label">Bay Area gardeners</span></div>
+            <div><span class="hstat-num">Free</span><span class="hstat-label">To join</span></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card-grid">
+            <div class="hero-plant-card" onclick="goTo('auth','signup')">
+              <div class="hpc-img hpc-img-1">🌳</div>
+              <div class="hpc-body">
+                <div class="hpc-name">Meyer Lemon Tree</div>
+                <div class="hpc-price">$18</div>
+                <div class="hpc-loc">📍 San Jose</div>
+              </div>
+            </div>
+            <div class="hero-plant-card" onclick="goTo('auth','signup')">
+              <div class="hpc-img hpc-img-2">🍊</div>
+              <div class="hpc-body">
+                <div class="hpc-name">Satsuma Mandarin</div>
+                <div class="hpc-price">Trade Only</div>
+                <div class="hpc-loc">📍 Oakland</div>
+              </div>
+            </div>
+            <div class="hero-plant-card" onclick="goTo('auth','signup')">
+              <div class="hpc-img hpc-img-3">🌶️</div>
+              <div class="hpc-body">
+                <div class="hpc-name">Heirloom Tomatoes</div>
+                <div class="hpc-price">$6 / flat</div>
+                <div class="hpc-loc">📍 Berkeley</div>
+              </div>
+            </div>
+            <div class="hero-plant-card" onclick="goTo('auth','signup')">
+              <div class="hpc-img hpc-img-4">🌻</div>
+              <div class="hpc-body">
+                <div class="hpc-name">Sunflower Seedlings</div>
+                <div class="hpc-price">$3 each</div>
+                <div class="hpc-loc">📍 Palo Alto</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-float-badge">🌟 New listings added daily</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section" id="features" style="background:#fff;">
+    <div class="section-inner">
+      <div class="section-label">What you can do</div>
+      <h2 class="section-title">Everything a local<br>plant lover needs</h2>
+      <p class="section-desc">One platform for the whole Bay Area gardening community.</p>
+      <div class="features-grid">
+        <div class="feat-card">
+          <div class="feat-icon fi-green">🛒</div>
+          <h3>Browse & Buy</h3>
+          <p>Filter by plant type, neighborhood, and price. Find exactly what your garden needs from trusted local growers.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon fi-terra">🌿</div>
+          <h3>List & Sell</h3>
+          <p>Create a listing in minutes. Upload a photo, set your price or offer for trade, and connect with buyers nearby.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon fi-gold">💬</div>
+          <h3>Chat Directly</h3>
+          <p>Message sellers securely on-platform to coordinate local pickup. No need to share personal contact info.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon fi-green">📍</div>
+          <h3>Hyper-Local</h3>
+          <p>Every listing shows an approximate Bay Area neighborhood so you always find plants near you.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon fi-terra">🤝</div>
+          <h3>Trade Plants</h3>
+          <p>Have extra saplings? Trade them with neighbors. Mark listings as trade-only or open to both cash and barter.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon fi-gold">🌱</div>
+          <h3>Community Forum</h3>
+          <p>Share planting tips, ask questions, and discuss Bay Area growing seasons with fellow gardeners.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="hiw-section" id="how-it-works">
+    <div class="hiw-inner">
+      <div class="section-label">Simple process</div>
+      <h2 class="section-title">From garden to neighbor<br>in four steps</h2>
+      <div class="steps-grid">
+        <div class="step"><div class="step-num">01</div><div class="step-icon">📸</div><h4>Snap a Photo</h4><p>Take a quick photo of your sapling or produce and upload it to create your listing.</p></div>
+        <div class="step"><div class="step-num">02</div><div class="step-icon">🏷️</div><h4>Set Your Price</h4><p>Choose a price, offer it for trade, or even give it away free. You're in control.</p></div>
+        <div class="step"><div class="step-num">03</div><div class="step-icon">💬</div><h4>Chat & Coordinate</h4><p>Buyers message you directly on the platform to arrange a safe local pickup.</p></div>
+        <div class="step"><div class="step-num">04</div><div class="step-icon">🤝</div><h4>Meet & Exchange</h4><p>Meet nearby, hand over the plant, and receive payment via Venmo or cash.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LISTINGS PREVIEW -->
+  <div class="section" id="listings-preview">
+    <div class="section-inner">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2rem;">
+        <div>
+          <div class="section-label">Fresh listings</div>
+          <h2 class="section-title">Plants available right now</h2>
+        </div>
+        <button class="btn btn-outline" onclick="goTo('auth','login')">View all listings →</button>
+      </div>
+      <div class="listings-grid">
+        <div class="plant-card" onclick="goTo('auth','signup')">
+          <div class="pc-img pc-img-1"><div class="pc-badge">Sapling</div>🍋</div>
+          <div class="pc-body"><div class="pc-title">Meyer Lemon Sapling</div><div class="pc-seller">🧑 Maria G. · South Bay</div><div class="pc-footer"><div class="pc-price">$18</div><div class="pc-loc">📍 San Jose</div></div></div>
+        </div>
+        <div class="plant-card" onclick="goTo('auth','signup')">
+          <div class="pc-img pc-img-2"><div class="pc-badge pc-trade">🔄 Trade</div>🌻</div>
+          <div class="pc-body"><div class="pc-title">Dwarf Sunflower Pack</div><div class="pc-seller">🧑 Tom K. · East Bay</div><div class="pc-footer"><div class="pc-price">Trade</div><div class="pc-loc">📍 Oakland</div></div></div>
+        </div>
+        <div class="plant-card" onclick="goTo('auth','signup')">
+          <div class="pc-img pc-img-3"><div class="pc-badge">Herb</div>🌿</div>
+          <div class="pc-body"><div class="pc-title">Basil + Mint Bundle</div><div class="pc-seller">🧑 Priya S. · Peninsula</div><div class="pc-footer"><div class="pc-price">$5</div><div class="pc-loc">📍 Palo Alto</div></div></div>
+        </div>
+        <div class="plant-card" onclick="goTo('auth','signup')">
+          <div class="pc-img pc-img-4"><div class="pc-badge">Fruit Tree</div>🫐</div>
+          <div class="pc-body"><div class="pc-title">Blueberry Bush (2yr)</div><div class="pc-seller">🧑 James L. · North Bay</div><div class="pc-footer"><div class="pc-price">$35</div><div class="pc-loc">📍 Mill Valley</div></div></div>
+        </div>
+        <div class="plant-card" onclick="goTo('auth','signup')">
+          <div class="pc-img pc-img-5"><div class="pc-badge">Seasonal</div>🍓</div>
+          <div class="pc-body"><div class="pc-title">Strawberry Plants (6pk)</div><div class="pc-seller">🧑 Lin C. · South Bay</div><div class="pc-footer"><div class="pc-price">$10</div><div class="pc-loc">📍 Fremont</div></div></div>
+        </div>
+        <div class="plant-card" onclick="goTo('auth','signup')">
+          <div class="pc-img pc-img-6"><div class="pc-badge">Shade Tree</div>🌲</div>
+          <div class="pc-body"><div class="pc-title">Coast Redwood Seedling</div><div class="pc-seller">🧑 Derek N. · SF</div><div class="pc-footer"><div class="pc-price">$12</div><div class="pc-loc">📍 San Francisco</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-inner">
+      <div class="section-label" style="justify-content:center;display:flex;">Join the community</div>
+      <h2>Ready to grow your<br>garden together? 🌱</h2>
+      <p>Join thousands of Bay Area gardeners already buying, selling, and sharing plants. It's free and always will be.</p>
+      <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-green btn-lg" onclick="goTo('auth','signup')">Create Free Account</button>
+        <button class="btn btn-outline btn-lg" onclick="goTo('auth','login')">Browse Plants</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">🌱 Spring Garden Market</div>
+    <ul class="footer-links">
+      <li><a href="#">About</a></li>
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Bay Area Blog</a></li>
+    </ul>
+    <div class="footer-copy">© 2025 Spring Garden Market · Bay Area, CA</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════
+     AUTH PAGE
+════════════════════════════════ -->
+<div id="page-auth" class="page">
+  <div class="auth-wrap">
+    <div class="auth-left">
+      <div>
+        <div class="auth-left-logo">🌱 Spring Garden Market</div>
+        <h2>Grow your garden with your community</h2>
+        <p>Bay Area's local marketplace for saplings, trees, herbs, and fresh seasonal produce. Connect with gardeners in your neighborhood.</p>
+        <div class="auth-perks">
+          <div class="auth-perk"><div class="auth-perk-icon">📍</div>Find plants within miles of your home</div>
+          <div class="auth-perk"><div class="auth-perk-icon">💬</div>Chat directly with sellers on-platform</div>
+          <div class="auth-perk"><div class="auth-perk-icon">🌿</div>Share tips in our community forum</div>
+          <div class="auth-perk"><div class="auth-perk-icon">🆓</div>Always free to join and browse</div>
+        </div>
+      </div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);">© 2025 Spring Garden Market</div>
+    </div>
+    <div class="auth-right">
+      <div class="auth-tabs">
+        <div class="atab active" id="atab-signup" onclick="switchAuth('signup')">Sign Up</div>
+        <div class="atab" id="atab-login" onclick="switchAuth('login')">Log In</div>
+      </div>
+
+      <!-- SIGNUP -->
+      <div id="aform-signup">
+        <div class="auth-form-title">Create your account</div>
+        <div class="auth-form-sub">Join your local plant community for free.</div>
+        <div id="signup-err" class="err-msg">Please fill in all required fields.</div>
+        <div class="fi-row">
+          <div class="fg"><label class="fl">First Name</label><input id="s-fname" class="fi" placeholder="Maria" /></div>
+          <div class="fg"><label class="fl">Last Name</label><input id="s-lname" class="fi" placeholder="Garcia" /></div>
+        </div>
+        <div class="fg"><label class="fl">Email</label><input id="s-email" class="fi" type="email" placeholder="maria@email.com" /></div>
+        <div class="fg"><label class="fl">Bay Area Neighborhood</label>
+          <select id="s-location" class="fi" style="cursor:pointer;">
+            <option value="">Select your area…</option>
+            <option>San Francisco</option><option>East Bay (Oakland/Berkeley)</option>
+            <option>South Bay (San Jose/Santa Clara)</option><option>Peninsula (Palo Alto/Redwood City)</option>
+            <option>North Bay (Marin/Sonoma)</option><option>Tri-Valley</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Password</label><input id="s-pass" class="fi" type="password" placeholder="Create a password" /></div>
+        <div class="fg" style="display:flex;align-items:center;gap:0.5rem;margin-top:0.25rem;">
+          <input type="checkbox" id="s-seller" style="cursor:pointer;accent-color:var(--green);width:15px;height:15px;" />
+          <label for="s-seller" style="font-size:0.82rem;color:var(--text2);cursor:pointer;">I also want to sell or trade plants</label>
+        </div>
+        <button class="btn btn-green btn-full" onclick="doSignup()" style="margin-top:0.75rem;border-radius:12px;">Create Account 🌱</button>
+        <div class="demo-bar"><span>or try a demo</span></div>
+        <button class="btn btn-outline btn-full" onclick="demoLogin()" style="border-radius:12px;">🚀 Demo — skip signup</button>
+        <div class="form-switch">Already a member? <a href="#" onclick="switchAuth('login');return false;">Log in here</a></div>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="aform-login" style="display:none;">
+        <div class="auth-form-title">Welcome back 🌿</div>
+        <div class="auth-form-sub">Sign in to your garden community.</div>
+        <div id="login-err" class="err-msg">Invalid email or password.</div>
+        <div class="fg"><label class="fl">Email</label><input id="l-email" class="fi" placeholder="maria@email.com" /></div>
+        <div class="fg">
+          <label class="fl">Password</label>
+          <input id="l-pass" class="fi" type="password" placeholder="Your password" />
+          <div class="forgot-link" onclick="toast('Password reset sent! (demo)')">Forgot password?</div>
+        </div>
+        <button class="btn btn-green btn-full" onclick="doLogin()" style="margin-top:0.75rem;border-radius:12px;">Sign In →</button>
+        <div class="demo-bar"><span>or try a demo</span></div>
+        <button class="btn btn-outline btn-full" onclick="demoLogin()" style="border-radius:12px;">🚀 Demo login</button>
+        <div class="form-switch">New here? <a href="#" onclick="switchAuth('signup');return false;">Create an account</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     APP PAGE
+════════════════════════════════ -->
+<div id="page-app" class="page">
+
+  <nav class="app-nav">
+    <div class="site-logo" onclick="goTo('landing')" style="font-size:1.1rem;">🌱 Spring Garden Market</div>
+    <div class="app-nav-center">
+      <div class="anav-item active" id="anav-market" onclick="showView('market',this)"><span>🛒</span><span>Marketplace</span></div>
+      <div class="anav-item" id="anav-sell" onclick="showView('sell',this)"><span>🌿</span><span>Sell</span></div>
+      <div class="anav-item" id="anav-community" onclick="showView('community',this)"><span>🌻</span><span>Community</span></div>
+      <div class="anav-item" id="anav-messages" onclick="showView('messages',this)"><span>💬</span><span>Messages</span><span class="anav-badge" id="msg-badge">2</span></div>
+      <div class="anav-item" id="anav-dashboard" onclick="showView('dashboard',this)"><span>📊</span><span>Dashboard</span></div>
+    </div>
+    <div class="user-menu">
+      <div class="user-av" id="user-av" title="Profile">🧑</div>
+      <div class="user-name-nav" id="user-name-nav">Maria G.</div>
+      <button class="btn btn-ghost btn-sm" onclick="doLogout()">Log out</button>
+    </div>
+  </nav>
+
+  <!-- ── MARKETPLACE ── -->
+  <div id="view-market" class="view active">
+    <div class="market-inner">
+      <div class="market-header">
+        <div>
+          <h2 style="font-family:'Fraunces',serif;font-size:1.5rem;font-weight:700;margin-bottom:0.25rem;">Local Plant Listings</h2>
+          <p style="color:var(--text2);font-size:0.875rem;">Showing plants available near you in the Bay Area</p>
+        </div>
+        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+          <div class="market-search">
+            <span style="color:var(--text3);">🔍</span>
+            <input id="market-search" placeholder="Search plants…" oninput="filterMarket()" />
+          </div>
+          <button class="btn btn-green btn-sm" onclick="showView('sell',document.getElementById('anav-sell'))">+ List a Plant</button>
+        </div>
+      </div>
+      <div class="filter-row" id="market-filters">
+        <div class="filter-chip active" onclick="setMarketFilter('all',this)">All</div>
+        <div class="filter-chip" onclick="setMarketFilter('Sapling',this)">🌱 Saplings</div>
+        <div class="filter-chip" onclick="setMarketFilter('Fruit Tree',this)">🍊 Fruit Trees</div>
+        <div class="filter-chip" onclick="setMarketFilter('Herb',this)">🌿 Herbs</div>
+        <div class="filter-chip" onclick="setMarketFilter('Shade Tree',this)">🌲 Shade Trees</div>
+        <div class="filter-chip" onclick="setMarketFilter('Seasonal',this)">🍓 Seasonal</div>
+        <div class="filter-chip" onclick="setMarketFilter('trade',this)">🔄 Trade Only</div>
+      </div>
+      <div class="listings-grid" id="market-grid"></div>
+    </div>
+  </div>
+
+  <!-- ── SELL ── -->
+  <div id="view-sell" class="view">
+    <div class="sell-inner">
+      <div class="sell-card">
+        <div id="sell-form-area">
+          <div class="sell-title">List a Plant</div>
+          <div class="sell-sub">Share your extra saplings, trees, herbs, or seasonal produce with your Bay Area neighbors.</div>
+          <div class="upload-zone" onclick="toast('Photo upload coming in full version! 📸')">
+            <div class="upload-icon">📸</div>
+            <div class="upload-text">Tap to upload a photo</div>
+            <div class="upload-hint">JPG, PNG up to 10MB</div>
+          </div>
+          <div class="fg"><label class="fl">Plant / Listing Title</label><input id="sell-title" class="fi" placeholder="e.g. Meyer Lemon Sapling, 2 years old" /></div>
+          <div class="fg"><label class="fl">Plant Type</label>
+            <div class="type-grid">
+              <div class="type-opt selected" onclick="selectType(this,'Sapling')"><span class="t-icon">🌱</span>Sapling</div>
+              <div class="type-opt" onclick="selectType(this,'Fruit Tree')"><span class="t-icon">🍊</span>Fruit Tree</div>
+              <div class="type-opt" onclick="selectType(this,'Herb')"><span class="t-icon">🌿</span>Herb</div>
+              <div class="type-opt" onclick="selectType(this,'Shade Tree')"><span class="t-icon">🌲</span>Shade Tree</div>
+              <div class="type-opt" onclick="selectType(this,'Seasonal')"><span class="t-icon">🍓</span>Seasonal</div>
+              <div class="type-opt" onclick="selectType(this,'Flowering')"><span class="t-icon">🌸</span>Flowering</div>
+            </div>
+          </div>
+          <div class="fg">
+            <label class="fl">Listing Type</label>
+            <div class="price-toggle">
+              <div class="ptoggle active" id="ptog-sell" onclick="setPriceMode('sell',this)">💵 Selling for Cash</div>
+              <div class="ptoggle" id="ptog-trade" onclick="setPriceMode('trade',this)">🔄 Trade Only</div>
+              <div class="ptoggle" id="ptog-free" onclick="setPriceMode('free',this)">🎁 Giving Away</div>
+            </div>
+          </div>
+          <div class="fg" id="price-field"><label class="fl">Price ($)</label><input id="sell-price" class="fi" type="number" placeholder="15" /></div>
+          <div class="fi-row">
+            <div class="fg"><label class="fl">Quantity</label><input id="sell-qty" class="fi" type="number" placeholder="1" /></div>
+            <div class="fg"><label class="fl">Your Neighborhood</label>
+              <select id="sell-loc" class="fi" style="cursor:pointer;">
+                <option>San Francisco</option><option>East Bay (Oakland/Berkeley)</option>
+                <option>South Bay (San Jose/Santa Clara)</option><option>Peninsula</option>
+                <option>North Bay (Marin/Sonoma)</option>
+              </select>
+            </div>
+          </div>
+          <div class="fg"><label class="fl">Description</label><textarea id="sell-desc" class="fi" style="resize:vertical;min-height:90px;" placeholder="Describe your plant — age, size, care history, pickup notes…"></textarea></div>
+          <div class="fg"><label class="fl">Payment (Venmo / Cash)</label><input id="sell-venmo" class="fi" placeholder="@your-venmo or 'cash only'" /></div>
+          <button class="btn btn-green btn-full" onclick="submitListing()" style="border-radius:12px;margin-top:0.5rem;">Publish Listing 🌱</button>
+        </div>
+        <div class="submit-success" id="sell-success">
+          <div class="success-icon">🎉</div>
+          <div class="success-title">Listing Published!</div>
+          <p style="color:var(--text2);font-size:0.875rem;margin-bottom:1.5rem;">Your plant is now live on the marketplace. Buyers in your area will see it right away.</p>
+          <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+            <button class="btn btn-green" onclick="resetSellForm()">List Another Plant</button>
+            <button class="btn btn-outline" onclick="showView('market',document.getElementById('anav-market'))">View Marketplace</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── COMMUNITY ── -->
+  <div id="view-community" class="view">
+    <div class="community-inner">
+      <div class="comm-main">
+        <div class="new-post-card">
+          <textarea id="new-post-text" class="new-post-input" placeholder="Share a gardening tip, ask a question, or discuss Bay Area planting seasons…"></textarea>
+          <div class="new-post-footer">
+            <div style="display:flex;gap:0.4rem;">
+              <span class="comm-tag" style="cursor:pointer;" onclick="appendTag('#tips')">#tips</span>
+              <span class="comm-tag" style="cursor:pointer;" onclick="appendTag('#BayAreaClimate')">#BayAreaClimate</span>
+              <span class="comm-tag" style="cursor:pointer;" onclick="appendTag('#plantcare')">#plantcare</span>
+            </div>
+            <button class="btn btn-green btn-sm" onclick="submitPost()">Post →</button>
+          </div>
+        </div>
+        <div id="comm-posts"></div>
+      </div>
+      <div class="comm-sidebar">
+        <div class="tip-card">
+          <div class="tip-icon">☀️</div>
+          <div class="tip-title">Spring Planting Tips</div>
+          <div class="tip-text">Bay Area spring is ideal for citrus saplings and tomatoes. Plant after last frost (Feb in South Bay, March in SF). Water deeply 2x/week.</div>
+        </div>
+        <div class="comm-side-card">
+          <div class="comm-side-title">🔥 Trending Topics</div>
+          <div class="trending-tag">#citrus <span class="tt-count">142 posts</span></div>
+          <div class="trending-tag">#BayAreaClimate <span class="tt-count">98 posts</span></div>
+          <div class="trending-tag">#fruitTrees <span class="tt-count">87 posts</span></div>
+          <div class="trending-tag">#waterwise <span class="tt-count">65 posts</span></div>
+          <div class="trending-tag">#springplanting <span class="tt-count">54 posts</span></div>
+        </div>
+        <div class="comm-side-card">
+          <div class="comm-side-title">🗓️ Bay Area Planting Calendar</div>
+          <div style="font-size:0.8rem;color:var(--text2);line-height:1.9;">
+            <div>🌱 <strong>Now:</strong> Tomatoes, peppers, basil</div>
+            <div>🍋 <strong>May–Jun:</strong> Citrus trees</div>
+            <div>🫐 <strong>Mar–Apr:</strong> Blueberries</div>
+            <div>🌻 <strong>Apr–May:</strong> Sunflowers, zucchini</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MESSAGES ── -->
+  <div id="view-messages" class="view">
+    <div class="messages-shell">
+      <div class="msg-sidebar">
+        <div class="msg-sidebar-head">
+          <div class="msg-sidebar-title">💬 Messages</div>
+          <div class="msg-search-bar">
+            <span style="color:var(--text3);">🔍</span>
+            <input placeholder="Search conversations…" />
+          </div>
+        </div>
+        <div class="msg-list" id="msg-conv-list"></div>
+      </div>
+      <div class="chat-area" id="chat-panel">
+        <div class="chat-empty-state">
+          <div class="ces-icon">💬</div>
+          <div style="font-size:0.9rem;">Select a conversation to start chatting</div>
+          <div style="font-size:0.8rem;color:var(--text3);">Or contact a seller from a listing</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DASHBOARD ── -->
+  <div id="view-dashboard" class="view">
+    <div class="dash-inner">
+      <div class="dash-header">
+        <div class="dash-greeting" id="dash-greeting">Welcome back, Maria! 🌿</div>
+        <div class="dash-sub">Here's what's happening in your garden marketplace.</div>
+      </div>
+      <div class="dash-stats">
+        <div class="dstat"><div class="dstat-num" id="ds-listings">3</div><div class="dstat-label">Active Listings</div><div class="dstat-change">↑ 1 new this week</div></div>
+        <div class="dstat"><div class="dstat-num" id="ds-messages">5</div><div class="dstat-label">New Messages</div><div class="dstat-change">2 need reply</div></div>
+        <div class="dstat"><div class="dstat-num">12</div><div class="dstat-label">Views Today</div><div class="dstat-change">↑ 3 from yesterday</div></div>
+        <div class="dstat"><div class="dstat-num">2</div><div class="dstat-label">Plants Sold</div><div class="dstat-change">$31 earned</div></div>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-card">
+          <div class="dash-card-title">My Listings</div>
+          <div id="my-listings-list"></div>
+          <button class="btn btn-green btn-sm" style="margin-top:1rem;" onclick="showView('sell',document.getElementById('anav-sell'))">+ Add Listing</button>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-title">Recent Activity</div>
+          <div class="activity-item"><div class="act-icon" style="background:var(--green-light);">💬</div><div><div class="act-text"><strong>Tom K.</strong> sent you a message about your Meyer Lemon listing</div><div class="act-time">10 minutes ago</div></div></div>
+          <div class="activity-item"><div class="act-icon" style="background:var(--terra-light);">👀</div><div><div class="act-text">3 people viewed your <strong>Basil Bundle</strong> listing</div><div class="act-time">1 hour ago</div></div></div>
+          <div class="activity-item"><div class="act-icon" style="background:var(--gold-light);">🌟</div><div><div class="act-text"><strong>Priya S.</strong> left a 5-star review after buying your tomato seedlings</div><div class="act-time">Yesterday</div></div></div>
+          <div class="activity-item"><div class="act-icon" style="background:var(--green-light);">✅</div><div><div class="act-text">Your <strong>Strawberry Plants</strong> listing was marked as sold</div><div class="act-time">2 days ago</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-app -->
+
+<!-- LISTING DETAIL MODAL -->
+<div class="modal-overlay" id="listing-modal" onclick="closeModal(event)">
+  <div class="modal-wrapper">
+    <div class="modal-close" onclick="closeListingModal()">✕</div>
+    <div class="modal-box" id="modal-content"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════
+//  DATA
+// ══════════════════════════════════
+let currentUser = null;
+let selectedType = 'Sapling';
+let priceMode = 'sell';
+let activeChatId = null;
+
+const listings = [
+  { id:1, title:'Meyer Lemon Sapling', type:'Fruit Tree', emoji:'🍋', imgClass:'pc-img-1', price:18, trade:false, free:false, seller:'Maria G.', sellerEmoji:'🧑‍🌾', loc:'San Jose', hood:'South Bay', desc:'Beautiful 2-year-old Meyer lemon sapling, about 18 inches tall. Grown from seed in organic soil. Very healthy with strong root system. Ready for a larger pot or outdoor planting. Great for Bay Area climate! Pickup only, cash or Venmo accepted.', rating:'⭐⭐⭐⭐⭐', reviews:8, venmo:'@mariag-plants' },
+  { id:2, title:'Dwarf Sunflower Pack (6 seedlings)', type:'Flowering', emoji:'🌻', imgClass:'pc-img-2', price:0, trade:true, free:false, seller:'Tom K.', sellerEmoji:'🧑', loc:'Oakland', hood:'East Bay', desc:'Six healthy dwarf sunflower seedlings, about 3 inches tall. Will trade for any herbs or tomato seedlings. Can also just give away if you come to me. Let\'s share the sunshine!', rating:'⭐⭐⭐⭐', reviews:5, venmo:'Trade only' },
+  { id:3, title:'Basil & Mint Herb Bundle', type:'Herb', emoji:'🌿', imgClass:'pc-img-3', price:5, trade:false, free:false, seller:'Priya S.', sellerEmoji:'👩', loc:'Palo Alto', hood:'Peninsula', desc:'Fresh-rooted basil and spearmint cuttings, ready to plant. Basil is Genovese variety, excellent for pesto. Mint is vigorous and spreads well in containers. Bundle of 4 plants total.', rating:'⭐⭐⭐⭐⭐', reviews:14, venmo:'@priya-garden' },
+  { id:4, title:'Blueberry Bush (2 years old)', type:'Fruit Tree', emoji:'🫐', imgClass:'pc-img-4', price:35, trade:false, free:false, seller:'James L.', sellerEmoji:'🧑‍🦳', loc:'Mill Valley', hood:'North Bay', desc:'Rabbiteye blueberry bush, two years old and just starting to produce. I\'m moving and can\'t take it with me. Will come with the pot. Ideal for Bay Area — very low chill hours needed.', rating:'⭐⭐⭐⭐⭐', reviews:3, venmo:'@james-northbay' },
+  { id:5, title:'Strawberry Plants (6-pack)', type:'Seasonal', emoji:'🍓', imgClass:'pc-img-5', price:10, trade:false, free:false, seller:'Lin C.', sellerEmoji:'👩', loc:'Fremont', hood:'East Bay', desc:'Everbearing strawberry runners, 6 plants in a tray. These produce fruit spring through fall. Great for containers, raised beds, or ground cover. Very productive variety.', rating:'⭐⭐⭐⭐', reviews:11, venmo:'@lin-fremont' },
+  { id:6, title:'Coast Redwood Seedling', type:'Shade Tree', emoji:'🌲', imgClass:'pc-img-6', price:12, trade:false, free:false, seller:'Derek N.', sellerEmoji:'🧑‍🦱', loc:'San Francisco', hood:'San Francisco', desc:'Native coast redwood seedling, about 6 inches tall. Grown from locally collected seeds. Perfect statement tree for large gardens. Grows fast once established. Rare to find locally.', rating:'⭐⭐⭐⭐⭐', reviews:6, venmo:'@derek-sf' },
+  { id:7, title:'Heirloom Tomato Seedlings', type:'Seasonal', emoji:'🍅', imgClass:'pc-img-3', price:4, trade:false, free:false, seller:'Rosa M.', sellerEmoji:'👩‍🌾', loc:'Berkeley', hood:'East Bay', desc:'Cherokee Purple and Brandywine heirloom tomato seedlings, 3-4 inches tall. Started indoors under grow lights. Ready to transplant after last frost. Sell as a pair — $4 for both.', rating:'⭐⭐⭐⭐⭐', reviews:22, venmo:'@rosa-berkgarden' },
+  { id:8, title:'Fig Tree Cutting (Black Mission)', type:'Fruit Tree', emoji:'🍈', imgClass:'pc-img-1', price:0, trade:false, free:true, seller:'Andy P.', sellerEmoji:'🧑', loc:'Santa Clara', hood:'South Bay', desc:'Giving away rooted fig cuttings from my Black Mission fig. These are fully rooted and ready to plant. I have too many! First come first served, pickup in Santa Clara. Bring your own container.', rating:'⭐⭐⭐⭐', reviews:4, venmo:'Free — no payment needed' },
+];
+
+const convos = [
+  { id: 1, name:'Tom K.', emoji:'🧑', listing:'Dwarf Sunflower Pack', online:true, time:'Just now', unread:1,
+    messages:[
+      {from:'them',text:'Hi! I saw your Meyer Lemon listing — is it still available? 🍋',time:'Today 10:22 AM'},
+      {from:'me',text:'Yes, still available! Are you interested in picking it up?',time:'Today 10:31 AM'},
+      {from:'them',text:'Definitely! I\'m in Oakland — would you do $15?',time:'Today 10:34 AM'},
+    ]},
+  { id: 2, name:'Rosa M.', emoji:'👩‍🌾', listing:'Heirloom Tomatoes trade', online:false, time:'Yesterday', unread:1,
+    messages:[
+      {from:'them',text:'Hey! Would you want to trade your lemon sapling for 4 of my heirloom tomato seedlings?',time:'Yesterday 3:15 PM'},
+      {from:'me',text:'Ooh that\'s a fun trade! What varieties do you have?',time:'Yesterday 4:02 PM'},
+      {from:'them',text:'Cherokee Purple and Brandywine! Both great for Bay Area summers 🍅',time:'Yesterday 4:08 PM'},
+      {from:'me',text:'I love Brandywine! I\'m in. When works for you?',time:'Yesterday 4:15 PM'},
+    ]},
+];
+
+let myListings = [
+  { title:'Meyer Lemon Sapling', type:'Fruit Tree', emoji:'🍋', imgBg:'pc-img-1', price:'$18', status:'avail' },
+  { title:'Basil & Mint Bundle', type:'Herb', emoji:'🌿', imgBg:'pc-img-3', price:'$5', status:'avail' },
+  { title:'Strawberry Plants', type:'Seasonal', emoji:'🍓', imgBg:'pc-img-5', price:'$10', status:'sold' },
+];
+
+let commPosts = [
+  { id:1, author:'Gardener Sue', avCls:'post-av-g', emoji:'🧑‍🌾', title:'Best citrus varieties for the Bay Area?', content:'I\'m looking to plant my first citrus tree this spring. I have a south-facing yard in San Jose. Has anyone had luck with Blood Oranges vs Meyer Lemons? Which do better here?', tags:['#citrus','#BayAreaClimate','#fruitTrees'], likes:24, comments:8, time:'2h ago', liked:false },
+  { id:2, author:'Mike from Oakland', avCls:'post-av-t', emoji:'🌱', title:'Watering schedule for spring — my approach', content:'I\'ve been gardening in Oakland for 10 years. My rule: deep water 2x/week in spring, not daily shallow watering. Gets roots to grow deeper. Game changer for drought tolerance come summer.', tags:['#waterwise','#tips','#Oakland'], likes:67, comments:12, time:'5h ago', liked:false },
+  { id:3, author:'Lin from Fremont', avCls:'post-av-y', emoji:'👩', title:'Strawberry runners — who wants them free?', content:'My strawberry bed is going wild this year 🍓 I have about 20 runners I need to thin out. Free to anyone who wants to come pick them up in Fremont. Just DM me here!', tags:['#freePlants','#strawberries','#Fremont'], likes:45, comments:31, time:'Yesterday', liked:false },
+];
+
+// ══════════════════════════════════
+//  ROUTING
+// ══════════════════════════════════
+function goTo(page, extra) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + page);
+  if (target) target.classList.add('active');
+  if (page === 'auth' && extra) switchAuth(extra);
+  if (page === 'app') {
+    renderMarket();
+    renderCommunity();
+    renderMessages();
+    renderDashboard();
+  }
+  window.scrollTo(0,0);
+}
+
+function showView(name, navEl) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.anav-item').forEach(n => n.classList.remove('active'));
+  const v = document.getElementById('view-' + name);
+  if (v) v.classList.add('active');
+  if (navEl) navEl.classList.add('active');
+}
+
+// ══════════════════════════════════
+//  AUTH
+// ══════════════════════════════════
+function switchAuth(type) {
+  document.getElementById('aform-signup').style.display = type === 'signup' ? 'block' : 'none';
+  document.getElementById('aform-login').style.display = type === 'login' ? 'block' : 'none';
+  document.getElementById('atab-signup').classList.toggle('active', type === 'signup');
+  document.getElementById('atab-login').classList.toggle('active', type === 'login');
+}
+
+function doSignup() {
+  const fn = document.getElementById('s-fname').value.trim();
+  const ln = document.getElementById('s-lname').value.trim();
+  const em = document.getElementById('s-email').value.trim();
+  const loc = document.getElementById('s-location').value;
+  const pw = document.getElementById('s-pass').value;
+  const err = document.getElementById('signup-err');
+  if (!fn || !ln || !em || !loc || !pw) { err.style.display = 'block'; return; }
+  err.style.display = 'none';
+  currentUser = { name: fn + ' ' + ln, firstName: fn, email: em, location: loc };
+  enterApp();
+}
+
+function doLogin() {
+  const em = document.getElementById('l-email').value.trim();
+  const pw = document.getElementById('l-pass').value;
+  const err = document.getElementById('login-err');
+  if (!em || !pw) { err.style.display = 'block'; return; }
+  err.style.display = 'none';
+  currentUser = { name: 'Maria Garcia', firstName: 'Maria', email: em, location: 'South Bay' };
+  enterApp();
+}
+
+function demoLogin() {
+  currentUser = { name: 'Maria Garcia', firstName: 'Maria', email: 'maria@demo.com', location: 'South Bay (San Jose/Santa Clara)' };
+  enterApp();
+}
+
+function enterApp() {
+  document.getElementById('user-name-nav').textContent = currentUser.firstName + ' G.';
+  document.getElementById('dash-greeting').textContent = `Welcome back, ${currentUser.firstName}! 🌿`;
+  goTo('app');
+  toast(`Welcome back, ${currentUser.firstName}! 🌱`);
+}
+
+function doLogout() {
+  currentUser = null;
+  goTo('landing');
+  toast('Logged out. See you soon! 🌿');
+}
+
+// ══════════════════════════════════
+//  MARKETPLACE
+// ══════════════════════════════════
+let marketFilter = 'all';
+let marketSearch = '';
+
+function renderMarket(data) {
+  const grid = document.getElementById('market-grid');
+  const src = data || listings;
+  const filtered = src.filter(l => {
+    const searchMatch = !marketSearch || l.title.toLowerCase().includes(marketSearch.toLowerCase()) || l.type.toLowerCase().includes(marketSearch.toLowerCase());
+    const filterMatch = marketFilter === 'all' || (marketFilter === 'trade' && l.trade) || l.type === marketFilter;
+    return searchMatch && filterMatch;
+  });
+  grid.innerHTML = filtered.map(l => `
+    <div class="plant-card" onclick="openListing(${l.id})">
+      <div class="pc-img ${l.imgClass}">
+        <div class="pc-badge ${l.trade ? 'pc-trade' : ''}">${l.free ? '🎁 Free' : l.trade ? '🔄 Trade' : l.type}</div>
+        ${l.emoji}
+      </div>
+      <div class="pc-body">
+        <div class="pc-title">${l.title}</div>
+        <div class="pc-seller">🧑 ${l.seller} · ${l.hood}</div>
+        <div class="pc-footer">
+          <div class="pc-price">${l.free ? 'Free' : l.trade ? 'Trade Only' : '$' + l.price}</div>
+          <div class="pc-loc">📍 ${l.loc}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  if (!filtered.length) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text3);">No listings found. Try a different filter!</div>';
+}
+
+function setMarketFilter(f, el) {
+  marketFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderMarket();
+}
+
+function filterMarket() {
+  marketSearch = document.getElementById('market-search').value;
+  renderMarket();
+}
+
+function openListing(id) {
+  const l = listings.find(x => x.id === id);
+  if (!l) return;
+  const modal = document.getElementById('listing-modal');
+  const content = document.getElementById('modal-content');
+  content.innerHTML = `
+    <div class="modal-img ${l.imgClass}" style="font-size:5rem;">${l.emoji}</div>
+    <div class="modal-body">
+      <div class="modal-title">${l.title}</div>
+      <div class="modal-price">${l.free ? '🎁 Free — Giving Away' : l.trade ? '🔄 Trade Only' : '$' + l.price}</div>
+      <div class="modal-meta">
+        <div class="modal-meta-item">🏷️ ${l.type}</div>
+        <div class="modal-meta-item">📍 ${l.loc}, ${l.hood}</div>
+        <div class="modal-meta-item">💳 ${l.venmo}</div>
+      </div>
+      <div class="modal-desc">${l.desc}</div>
+      <div class="modal-seller">
+        <div class="seller-av" style="font-size:1.5rem;">${l.sellerEmoji}</div>
+        <div>
+          <div class="seller-name">${l.seller}</div>
+          <div class="seller-loc">${l.hood} · Bay Area</div>
+          <div class="seller-rating">${l.rating} (${l.reviews} reviews)</div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-green" style="flex:1;justify-content:center;" onclick="contactSeller(${l.id})">💬 Message Seller</button>
+        <button class="btn btn-outline" onclick="closeListingModal()">Close</button>
+      </div>
+    </div>
+  `;
+  modal.classList.add('open');
+}
+
+function closeModal(e) { if (e.target === document.getElementById('listing-modal')) closeListingModal(); }
+function closeListingModal() { document.getElementById('listing-modal').classList.remove('open'); }
+
+function contactSeller(listingId) {
+  closeListingModal();
+  showView('messages', document.getElementById('anav-messages'));
+  const l = listings.find(x => x.id === listingId);
+  toast(`Opening chat about "${l.title}" 💬`);
+  setTimeout(() => openChat(1), 300);
+}
+
+// ══════════════════════════════════
+//  SELL
+// ══════════════════════════════════
+function selectType(el, type) {
+  selectedType = type;
+  document.querySelectorAll('.type-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function setPriceMode(mode, el) {
+  priceMode = mode;
+  document.querySelectorAll('.ptoggle').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('price-field').style.display = mode === 'sell' ? 'block' : 'none';
+}
+
+function submitListing() {
+  const title = document.getElementById('sell-title').value.trim();
+  if (!title) { toast('Please add a listing title! 🌱'); return; }
+  document.getElementById('sell-form-area').style.display = 'none';
+  document.getElementById('sell-success').style.display = 'block';
+  // Add to my listings
+  myListings.unshift({ title, type: selectedType, emoji: '🌱', imgBg: 'pc-img-3', price: priceMode === 'sell' ? '$' + (document.getElementById('sell-price').value || '?') : priceMode === 'trade' ? 'Trade' : 'Free', status: 'avail' });
+  document.getElementById('ds-listings').textContent = myListings.filter(l => l.status === 'avail').length;
+  renderMyListings();
+}
+
+function resetSellForm() {
+  document.getElementById('sell-form-area').style.display = 'block';
+  document.getElementById('sell-success').style.display = 'none';
+  document.getElementById('sell-title').value = '';
+  document.getElementById('sell-price').value = '';
+  document.getElementById('sell-desc').value = '';
+}
+
+// ══════════════════════════════════
+//  COMMUNITY
+// ══════════════════════════════════
+function renderCommunity() {
+  const container = document.getElementById('comm-posts');
+  container.innerHTML = commPosts.map(p => `
+    <div class="post-card">
+      <div class="post-head">
+        <div class="post-av ${p.avCls}" style="font-size:1.2rem;">${p.emoji}</div>
+        <div>
+          <div class="post-author-name">${p.author}</div>
+          <div class="post-time">${p.time}</div>
+        </div>
+      </div>
+      <div class="post-title">${p.title}</div>
+      <div class="post-content">${p.content}</div>
+      <div class="post-tags">${p.tags.map(t => `<span class="comm-tag">${t}</span>`).join('')}</div>
+      <div class="post-actions">
+        <div class="pact ${p.liked ? 'liked' : ''}" onclick="likePost(${p.id}, this)">❤️ ${p.likes}</div>
+        <div class="pact">💬 ${p.comments} comments</div>
+        <div class="pact">↗️ Share</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function likePost(id, el) {
+  const post = commPosts.find(p => p.id === id);
+  if (post) {
+    post.liked = !post.liked;
+    post.likes += post.liked ? 1 : -1;
+    el.classList.toggle('liked');
+    el.innerHTML = '❤️ ' + post.likes;
+  }
+}
+
+function submitPost() {
+  const text = document.getElementById('new-post-text').value.trim();
+  if (!text) { toast('Write something first! 🌱'); return; }
+  commPosts.unshift({ id: Date.now(), author: currentUser.firstName + ' (you)', avCls: 'post-av-g', emoji: '🧑', title: text.substring(0,60) + (text.length > 60 ? '…' : ''), content: text, tags: ['#community'], likes: 0, comments: 0, time: 'Just now', liked: false });
+  document.getElementById('new-post-text').value = '';
+  renderCommunity();
+  toast('Post published! 🌿');
+}
+
+function appendTag(tag) {
+  const ta = document.getElementById('new-post-text');
+  ta.value += (ta.value ? ' ' : '') + tag;
+  ta.focus();
+}
+
+// ══════════════════════════════════
+//  MESSAGES
+// ══════════════════════════════════
+function renderMessages() {
+  const list = document.getElementById('msg-conv-list');
+  list.innerHTML = convos.map(c => `
+    <div class="msg-conv ${activeChatId === c.id ? 'active' : ''}" onclick="openChat(${c.id})">
+      <div class="conv-av" style="font-size:1.3rem;">${c.emoji}${c.online ? '<div class="conv-online"></div>' : ''}</div>
+      <div class="conv-info">
+        <div class="conv-name">${c.name}</div>
+        <div class="conv-preview">Re: ${c.listing}</div>
+      </div>
+      <div class="conv-meta">
+        <div class="conv-time">${c.time}</div>
+        ${c.unread ? `<div class="conv-badge">${c.unread}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function openChat(id) {
+  activeChatId = id;
+  const c = convos.find(x => x.id === id);
+  c.unread = 0;
+  renderMessages();
+  const panel = document.getElementById('chat-panel');
+  panel.innerHTML = `
+    <div class="chat-header">
+      <div class="conv-av" style="font-size:1.3rem;width:44px;height:44px;background:var(--cream2);border-radius:50%;display:flex;align-items:center;justify-content:center;">${c.emoji}</div>
+      <div class="chat-header-info">
+        <div class="chat-hname">${c.name}</div>
+        <div class="chat-hlisting">Re: ${c.listing}</div>
+        <div class="chat-hstatus">${c.online ? '● Online' : '● Last seen recently'}</div>
+      </div>
+    </div>
+    <div class="chat-messages" id="chat-msgs-${id}"></div>
+    <div class="chat-input-bar">
+      <div class="chat-input-wrap">
+        <textarea class="chat-ta" id="chat-input-${id}" placeholder="Message ${c.name}…" rows="1" onkeydown="handleChatKey(event,${id})"></textarea>
+      </div>
+      <button class="send-btn" onclick="sendMsg(${id})">➤</button>
+    </div>
+  `;
+  renderChatMessages(id);
+  document.getElementById('msg-badge').style.display = 'none';
+}
+
+function renderChatMessages(id) {
+  const c = convos.find(x => x.id === id);
+  const container = document.getElementById('chat-msgs-' + id);
+  if (!container) return;
+  container.innerHTML = `<div class="date-divider">Today</div>` + c.messages.map(m => `
+    <div class="msg-wrap ${m.from === 'me' ? 'me' : 'them'}">
+      ${m.from !== 'me' ? `<div style="width:30px;height:30px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;">${convos.find(x=>x.id===id).emoji}</div>` : ''}
+      <div>
+        <div class="msg-time-text">${m.time}</div>
+        <div class="msg-bubble">${m.text}</div>
+      </div>
+    </div>
+  `).join('');
+  container.scrollTop = container.scrollHeight;
+}
+
+function sendMsg(id) {
+  const input = document.getElementById('chat-input-' + id);
+  const text = input.value.trim();
+  if (!text) return;
+  const c = convos.find(x => x.id === id);
+  c.messages.push({ from:'me', text, time:'Just now' });
+  input.value = '';
+  renderChatMessages(id);
+  // Simulate reply
+  setTimeout(() => {
+    const replies = ['Sounds great! 🌱', 'Perfect, I\'ll be there!', 'Can we meet at 3pm?', 'Thanks so much 😊', 'I love this idea! Let me check my schedule.'];
+    c.messages.push({ from:'them', text: replies[Math.floor(Math.random()*replies.length)], time:'Just now' });
+    renderChatMessages(id);
+  }, 1200);
+}
+
+function handleChatKey(e, id) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(id); }
+}
+
+// ══════════════════════════════════
+//  DASHBOARD
+// ══════════════════════════════════
+function renderDashboard() {
+  renderMyListings();
+}
+
+function renderMyListings() {
+  const container = document.getElementById('my-listings-list');
+  if (!container) return;
+  container.innerHTML = myListings.map(l => `
+    <div class="my-listing-row">
+      <div class="ml-img ${l.imgBg}">${l.emoji}</div>
+      <div class="ml-info">
+        <div class="ml-name">${l.title}</div>
+        <div class="ml-price">${l.price} · ${l.type}</div>
+      </div>
+      <div class="ml-status status-${l.status}">${l.status === 'avail' ? 'Available' : l.status === 'sold' ? 'Sold' : 'Reserved'}</div>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════
+//  TOAST
+// ══════════════════════════════════
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── INIT ──
+renderMarket();
+</script>
+</body>
+</html>
